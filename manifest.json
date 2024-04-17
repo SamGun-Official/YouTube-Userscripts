@@ -1,0 +1,40 @@
+{
+	"name": "Custom YouTube Extension",
+	"version": "1.0.0",
+	"description": "This extension was made because YouTube has so many flaws and can be so annoying when in use.",
+	"manifest_version": 3,
+	"author": "Samuel Gunawan",
+	"action": {
+		"default_popup": "popup.html",
+		"default_title": "Custom YouTube Extension"
+	},
+	"background": {
+		"service_worker": "src/js/background.js"
+	},
+	"content_scripts": [
+		{
+			"matches": [
+				"*://youtube.com/*",
+				"*://www.youtube.com/*",
+				"*://m.youtube.com/*"
+			],
+			"exclude_matches": [
+				"*://*.music.youtube.com/*"
+			],
+			"js": [
+				"src/js/content.js"
+			]
+		}
+	],
+	"externally_connectable": {
+		"matches": [
+			"*://*.youtube.com/*"
+		]
+	},
+	"host_permissions": [
+		"*://*.youtube.com/*"
+	],
+	"permissions": [
+		"storage"
+	]
+}

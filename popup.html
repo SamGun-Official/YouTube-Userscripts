@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en-US">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta http-equiv="X-UA-Compatible" content="ie=edge" />
+		<title>Custom YouTube Extension</title>
+		<link rel="stylesheet" type="text/css" href="https://cdn.jsdelivr.net/npm/daisyui@4.10.1/dist/full.min.css" />
+		<link rel="stylesheet" type="text/css" href="src/css/build.css" />
+		<link rel="stylesheet" type="text/css" href="src/css/style.css" />
+		<script type="text/javascript" src="src/js/jquery-3.7.1.min.js"></script>
+		<script type="module" src="src/js/binding.js" defer></script>
+	</head>
+	<body class="flex items-center justify-center">
+		<div id="wrapper" class="bg-[#0f0f0f] min-w-96 max-w-xl w-full">
+			<div class="container">
+				<div class="bg-[#3d3d3d] p-2 flex items-center justify-between">
+					<h1 class="text-lg font-semibold">Custom YouTube Extension</h1>
+				</div>
+				<div class="p-2">
+					<ul>
+						<li>
+							<div class="form-control">
+								<label class="label cursor-pointer" for="no_ads_feature">
+									<span class="label-text">YouTube No Ads</span>
+									<input type="checkbox" class="toggle toggle-success" name="no_ads_feature" id="no_ads_feature" />
+								</label>
+							</div>
+						</li>
+						<li>
+							<div class="form-control">
+								<label class="label cursor-pointer" for="no_shorts_feature">
+									<span class="label-text">YouTube No Shorts</span>
+									<input type="checkbox" class="toggle toggle-success" name="no_shorts_feature" id="no_shorts_feature" />
+								</label>
+							</div>
+						</li>
+						<li>
+							<div class="form-control">
+								<label class="label cursor-pointer" for="no_stream_chat_feature">
+									<span class="label-text">YouTube No Live Chat</span>
+									<input type="checkbox" class="toggle toggle-success" name="no_stream_chat_feature" id="no_stream_chat_feature" />
+								</label>
+							</div>
+						</li>
+					</ul>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>
