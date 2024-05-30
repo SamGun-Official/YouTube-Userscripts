@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         No ADS - YouTube
 // @namespace    http://tampermonkey.net/
-// @version      2.3.1
+// @version      2.3.2
 // @description  - Skips all youtube ads - | - undetectable - | - skips ads instantly -
 // @author       GSRHaX
 // @match        https://www.youtube.com/*
@@ -66,7 +66,7 @@ setInterval(() => {
 		}
 		// Remove new UI panel while still on old UI
 		// Rework this later when changes are rolling out to all users
-		if (document.getElementById("panels") !== undefined) {
+		if (document.getElementById("panels") !== null) {
 			let sidePanel = document.getElementById("panels");
 			sidePanel.remove();
 		}
