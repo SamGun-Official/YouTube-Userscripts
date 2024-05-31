@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         No ADS - YouTube
 // @namespace    http://tampermonkey.net/
-// @version      2.3.4
+// @version      2.3.5
 // @description  - Skips all youtube ads - | - undetectable - | - skips ads instantly -
 // @author       GSRHaX
 // @match        https://www.youtube.com/*
@@ -12,66 +12,67 @@
 // ==/UserScript==
 
 let ogVolume = 1,
-	pbRate = 1;
-setInterval(() => {
-	if (document.getElementsByClassName("video-stream html5-main-video")[0] !== undefined) {
-		let ad = document.getElementsByClassName("video-ads ytp-ad-module")[0];
-		let vid = document.getElementsByClassName("video-stream html5-main-video")[0];
-		if (ad == undefined) {
-			pbRate = vid.playbackRate;
-		}
+	pbRate = 1,
+	scriptTimer = setInterval(() => {
+		if (document.getElementsByClassName("video-stream html5-main-video")[0] !== undefined) {
+			let ad = document.getElementsByClassName("video-ads ytp-ad-module")[0];
+			let vid = document.getElementsByClassName("video-stream html5-main-video")[0];
+			if (ad == undefined) {
+				pbRate = vid.playbackRate;
+			}
 
-		let closeAble = document.getElementsByClassName("ytp-ad-overlay-close-button");
-		for (let i = 0; i < closeAble.length; i++) {
-			closeAble[i].click();
-		}
-		if (document.getElementsByClassName("style-scope ytd-watch-next-secondary-results-renderer sparkles-light-cta GoogleActiveViewElement")[0] !== undefined) {
-			let sideAd = document.getElementsByClassName("style-scope ytd-watch-next-secondary-results-renderer sparkles-light-cta GoogleActiveViewElement")[0];
-			sideAd.style.display = "none";
-		}
-		if (document.getElementsByClassName("style-scope ytd-item-section-renderer sparkles-light-cta")[0] !== undefined) {
-			let sideAd_ = document.getElementsByClassName("style-scope ytd-item-section-renderer sparkles-light-cta")[0];
-			sideAd_.style.display = "none";
-		}
-		if (document.getElementsByClassName("ytp-skip-ad-button")[0] !== undefined) {
-			let skipBtn = document.getElementsByClassName("ytp-skip-ad-button")[0];
-			skipBtn.click();
-		}
-		if (document.getElementsByClassName("ytp-ad-message-container")[0] !== undefined) {
-			let incomingAd = document.getElementsByClassName("ytp-ad-message-container")[0];
-			incomingAd.style.display = "none";
-		}
-		if (document.getElementsByClassName("style-scope ytd-companion-slot-renderer")[0] !== undefined) {
-			document.getElementsByClassName("style-scope ytd-companion-slot-renderer")[0].remove();
-		}
-		if (ad !== undefined) {
-			if (ad.children.length > 0) {
-				if (document.querySelector(".ytp-ad-text[class*='ytp-ad-preview-text']") !== undefined) {
-					vid.playbackRate = 16;
-					vid.muted = true;
+			let closeAble = document.getElementsByClassName("ytp-ad-overlay-close-button");
+			for (let i = 0; i < closeAble.length; i++) {
+				closeAble[i].click();
+			}
+			if (document.getElementsByClassName("style-scope ytd-watch-next-secondary-results-renderer sparkles-light-cta GoogleActiveViewElement")[0] !== undefined) {
+				let sideAd = document.getElementsByClassName("style-scope ytd-watch-next-secondary-results-renderer sparkles-light-cta GoogleActiveViewElement")[0];
+				sideAd.style.display = "none";
+			}
+			if (document.getElementsByClassName("style-scope ytd-item-section-renderer sparkles-light-cta")[0] !== undefined) {
+				let sideAd_ = document.getElementsByClassName("style-scope ytd-item-section-renderer sparkles-light-cta")[0];
+				sideAd_.style.display = "none";
+			}
+			if (document.getElementsByClassName("ytp-skip-ad-button")[0] !== undefined) {
+				let skipBtn = document.getElementsByClassName("ytp-skip-ad-button")[0];
+				skipBtn.click();
+			}
+			if (document.getElementsByClassName("ytp-ad-message-container")[0] !== undefined) {
+				let incomingAd = document.getElementsByClassName("ytp-ad-message-container")[0];
+				incomingAd.style.display = "none";
+			}
+			if (document.getElementsByClassName("style-scope ytd-companion-slot-renderer")[0] !== undefined) {
+				document.getElementsByClassName("style-scope ytd-companion-slot-renderer")[0].remove();
+			}
+			if (ad !== undefined) {
+				if (ad.children.length > 0) {
+					if (document.querySelector(".ytp-ad-text[class*='ytp-ad-preview-text']") !== undefined) {
+						vid.playbackRate = 16;
+						vid.muted = true;
+					}
 				}
 			}
+			if (document.getElementById("masthead-ad") !== null) {
+				let headerAd = document.getElementById("masthead-ad");
+				headerAd.remove();
+			}
+			if (document.getElementsByTagName("ytd-ad-slot-renderer")[0] !== undefined) {
+				let rightSideAd = document.getElementsByTagName("ytd-ad-slot-renderer")[0];
+				rightSideAd.remove();
+			}
+			if (document.getElementsByTagName("ytd-reel-shelf-renderer")[0] !== undefined) {
+				let rightSideShorts = document.getElementsByTagName("ytd-reel-shelf-renderer")[0];
+				rightSideShorts.remove();
+			}
+			// Remove new UI panel while still on old UI
+			// Rework this later when changes are rolling out to all users
+			if (document.getElementById("panels") !== null) {
+				let sidePanel = document.getElementById("panels");
+				sidePanel.style.display = "none";
+			}
+			if (document.getElementsByTagName("ytd-enforcement-message-view-model")[0] !== undefined) {
+				location.reload();
+				clearInterval(scriptTimer);
+			}
 		}
-		if (document.getElementById("masthead-ad") !== null) {
-			let headerAd = document.getElementById("masthead-ad");
-			headerAd.remove();
-		}
-		if (document.getElementsByTagName("ytd-ad-slot-renderer")[0] !== undefined) {
-			let rightSideAd = document.getElementsByTagName("ytd-ad-slot-renderer")[0];
-			rightSideAd.remove();
-		}
-		if (document.getElementsByTagName("ytd-reel-shelf-renderer")[0] !== undefined) {
-			let rightSideShorts = document.getElementsByTagName("ytd-reel-shelf-renderer")[0];
-			rightSideShorts.remove();
-		}
-		// Remove new UI panel while still on old UI
-		// Rework this later when changes are rolling out to all users
-		if (document.getElementById("panels") !== null) {
-			let sidePanel = document.getElementById("panels");
-			sidePanel.style.display = "none";
-		}
-		if (document.getElementsByTagName("ytd-enforcement-message-view-model")[0] !== undefined) {
-			location.reload();
-		}
-	}
-}, 100);
+	}, 100);
