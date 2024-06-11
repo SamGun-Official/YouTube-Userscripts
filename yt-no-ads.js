@@ -1,7 +1,7 @@
 // ==UserScript==
 // @name         No ADS - YouTube
 // @namespace    http://tampermonkey.net/
-// @version      2.3.5
+// @version      2.3.6
 // @description  - Skips all youtube ads - | - undetectable - | - skips ads instantly -
 // @author       GSRHaX
 // @match        https://www.youtube.com/*
@@ -68,7 +68,12 @@ let ogVolume = 1,
 			// Rework this later when changes are rolling out to all users
 			if (document.getElementById("panels") !== null) {
 				let sidePanel = document.getElementById("panels");
-				sidePanel.style.display = "none";
+				let panelSections = sidePanel.children;
+				for (const section of panelSections) {
+					if (section.targetId === "engagement-panel-ads") {
+						section.style.display = "none";
+					}
+				}
 			}
 			if (document.getElementsByTagName("ytd-enforcement-message-view-model")[0] !== undefined) {
 				location.reload();
